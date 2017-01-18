@@ -5,15 +5,34 @@ If you've never written code in this way, it can be hard to start. This tutorial
 
 In this tutorial I will assume a basic familiarity with Javascript, and enough knowledge of testing to understand the the syntax. If you've never written any tests, try [DWYL's tdd guide](https://github.com/dwyl/learn-tdd)
 
-## what is a pure function?
-Simply put, a pure function takes in some number of arguments and then returns a value.
+## Glossary
+
+### pure functions
+A pure function takes in some number of arguments and then returns a value.
 
 When called with a given set of arguments a pure function will __always__ return the same result.
 
 A pure function has no side effects. This means that simply calling the function should have no effect on the rest of your program - it should do nothing but return a value.
 
+### Side effect
+A functions side effects are anything that it does beyond simply returning a value. For example this function has the side effect of changing a global variable
+
+```
+var age = 21
+
+function sideEffector () {
+  age += 1
+}
+
+console.log(age) // 21
+sideEffector()
+console.log(age) // 22
+```
+
+Side effects also include making HTTP requests, and manipulating the DOM. 
+
 ## Why should I write pure functions?
-If you are used to writing code which alters global state, and doesn't strictly require functions to simply take and return values, writing pure functions can feel like imposing unecessary restrictions on yourself.
+If you are used to writing code which rely on global state, and utilise side effects, then writing pure functions can feel like imposing unecessary restrictions on yourself.
 
 I encourage you to fight through this inertia, as pure functions can have huge benefits for your code. Today we will be focusing on one particular benefit
 
