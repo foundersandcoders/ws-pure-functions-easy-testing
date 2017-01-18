@@ -1,5 +1,9 @@
-# pure-functions-easy-testing
-A tutorial showing impure functions from FAC10s repos - rewriting them using pure functions to make them testable.
+# Pure functions - easy testing
+One of the biggest benefits of testing your code, is that you will be encouraged to write testable code. Testable code will tend to be predictable, readable, and split into small pure functions.
+
+If you've never written code in this way, it can be hard to start. This tutorial is intended to help people who are interested in testing their code learn how to start writing pure testable functions.
+
+In this tutorial I will assume a basic familiarity with Javascript, and enough knowledge of testing to understand the the syntax. If you've never written any tests, try [DWYL's tdd guide](https://github.com/dwyl/learn-tdd)
 
 ## what is a pure function?
 Simply put, a pure function takes in some number of arguments and then returns a value.
