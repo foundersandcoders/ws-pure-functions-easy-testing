@@ -8,6 +8,7 @@ In this tutorial I will assume a basic familiarity with Javascript, and enough k
 ## Glossary
 
 ### pure functions
+
 A pure function takes in some number of arguments and then returns a value.
 
 When called with a given set of arguments a pure function will __always__ return the same result.
@@ -15,6 +16,7 @@ When called with a given set of arguments a pure function will __always__ return
 A pure function has no side effects. This means that simply calling the function should have no effect on the rest of your program - it should do nothing but return a value.
 
 ### Side effect
+
 A functions side effects are anything that it does beyond simply returning a value. For example this function has the side effect of changing a global variable
 
 ```
@@ -32,6 +34,7 @@ console.log(age) // 22
 Side effects also include making HTTP requests, and manipulating the DOM. 
 
 ## Why should I write pure functions?
+
 If you are used to writing code which rely on global state, and utilise side effects, then writing pure functions can feel like imposing unecessary restrictions on yourself.
 
 I encourage you to fight through this inertia, as pure functions can have huge benefits for your code. Today we will be focusing on one particular benefit
@@ -41,11 +44,12 @@ I encourage you to fight through this inertia, as pure functions can have huge b
 If you've tried to start writing tests and struggled, it could well be that the code you are writing is simply _too hard to test_. If a function relies on global variables, it means your tests will have to set up global state, reset it for each test, and if a test fails it's hard to be sure exactly why.
 
 ## Examples stolen from FAC10
-I jumped into your repos and stole functions willy nilly.
 
-### example 1
+If you are a member of FAC10 (the intended audience of this workshop) you might recognise some of this code. Please don't be offended! You're all writing much better code than I was in your position.
 
-In this example we are changing declare a sound object global variable, and then we mutate it. I don't want to try and test this code.
+### example 1 - let's be declarative, let's get functional
+
+In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test. 
 
 ```
 const sounds = [
@@ -60,16 +64,18 @@ sounds.forEach(soundSrc => {
   soundObjects.push(sound);
 });
 ```
-Instead lets declare a which will return a testable pure function
+
+Instead lets make a function. `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
 ```
+// [] -> []
 function makeSoundObjects (sounds) {
   return sounds.map(soundSrc => new Audio(soundSrc))
 }
+
+const soundObjects = makeSoundObjects(sounds)
 ```
 
-testing is easy, as we can now pass as many different arrays of sounds in as we want, and check that we the results we expect.
-
-### What if I need side effects?
+### example 3 - What if I need side effects?
 Most programs we want to write wouldn't work if we completely disallow side effects. How then we can ensure that our impure functions are testable?
 
 This function takes no arguments, alters the dom based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
