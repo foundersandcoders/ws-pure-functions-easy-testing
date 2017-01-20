@@ -1,11 +1,4 @@
 var constantNumber = 5;
-var constantArray = [5, 7, 23, 4];
-var constantObject = {
-  "a": 5,
-  "b": 2,
-  "c": 8
-};
-
 
 var addOne = function () {
   constantNumber += 1;
