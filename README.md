@@ -137,4 +137,4 @@ We have now two easily testable functions, which we can chain together to get th
 * open specrunner.html in the broswer
 * appreciate the failing tests
 * open exercises/exercise1.js
-* refactor the functions, make the tests pass
+* refactor the functions, make the tests pass. It can be helpful to open the test file, and have a look at exactly what is being tested.
