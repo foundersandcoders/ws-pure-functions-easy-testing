@@ -21,6 +21,15 @@ QUnit.test('Refactor our incrementArray function so it is pure.', function ( t )
     "Returns the same value when called with the same argument");
 });
 
+QUnit.test('Refactor our addNumberArray function so it is pure.', function ( t ) {
+  t.deepEqual(addNumberArray(constantArray, constantNumber), [5, 7, 23, 4, 5],
+    "returns array with a new number appended");
+  t.deepEqual(constantArray, [5, 7, 23, 4],
+    "constant array has not been altered");
+  t.deepEqual(addNumberArray(constantArray, constantNumber), [5, 7, 23, 4, 5],
+    "Returns the same value when called with the same argument");
+})
+
 QUnit.test('Refactor our incrementObject function so it is pure', function ( t ) {
   var expected = {
     "a": 6,
@@ -34,7 +43,7 @@ QUnit.test('Refactor our incrementObject function so it is pure', function ( t )
   };
 
   t.deepEqual(incrementObject(constantObject), expected,
-    "Returns array of incredment values");
+    "Returns array of incremented values");
   t.deepEqual(constantObject, startingObject,
     "constant array has not been altered");
   t.deepEqual(incrementObject(constantObject), expected,

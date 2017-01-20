@@ -21,6 +21,10 @@ var incrementArray = function (array) {
   });
 };
 
+var addNumberArray = function (array, number) {
+  return array.concat([number])
+}
+
 var incrementObject = function (object) {
   var newObject = {}
 
