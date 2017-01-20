@@ -134,7 +134,7 @@ We have now two easily testable functions, which we can chain together to get th
 # Exercises!
 
 * clone this repo
-* open specrunner.html
+* open specrunner.html in the broswer
 * appreciate the failing tests
 * open exercises/exercise1.js
 * refactor the functions, make the tests pass
