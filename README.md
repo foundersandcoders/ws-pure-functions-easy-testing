@@ -31,7 +31,7 @@ sideEffector()
 console.log(age) // 22
 ```
 
-Side effects also include making HTTP requests, and manipulating the DOM. 
+Side effects also include making HTTP requests, and manipulating the DOM.
 
 ## Why should I write pure functions?
 
@@ -49,7 +49,7 @@ If you are a member of FAC10 (the intended audience of this workshop) you might 
 
 ### example 1 - let's be declarative, let's get functional
 
-In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test. 
+In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
 
 ```
 const sounds = [
@@ -130,3 +130,11 @@ test(`functions return our stuff`, (t) => {
 })
 ```
 We have now two easily testable functions, which we can chain together to get the same functionality we had before.
+
+# Exercises!
+
+* clone this repo
+* open specrunner.html
+* appreciate the failing tests
+* open exercises/exercise1.js
+* refactor the functions, make the tests pass
