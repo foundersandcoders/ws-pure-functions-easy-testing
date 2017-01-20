@@ -3,14 +3,14 @@ QUnit.test('Refactor our addOne function so it is pure.', function ( t ) {
   t.equal(constantNumber, 5, "constant number has not been altered");
   t.equal(addOne(constantNumber), 6,
     "Returns the same value when called with the same argument");
-})
+});
 
 QUnit.test('Refactor our timesTwo function so it is pure.', function ( t ) {
   t.equal(timesTwo(constantNumber), 10, "Returns argument doubled");
   t.equal(constantNumber, 5, "constant number has not been altered");
   t.equal(timesTwo(constantNumber), 10,
     "Returns the same value when called with the same argument");
-})
+});
 
 QUnit.test('Refactor our incrementArray function so it is pure.', function ( t ) {
   t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],
@@ -19,7 +19,7 @@ QUnit.test('Refactor our incrementArray function so it is pure.', function ( t )
     "constant array has not been altered");
   t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],
     "Returns the same value when called with the same argument");
-})
+});
 
 QUnit.test('Refactor our incrementObject function so it is pure', function ( t ) {
   var expected = {
@@ -39,4 +39,4 @@ QUnit.test('Refactor our incrementObject function so it is pure', function ( t )
     "constant array has not been altered");
   t.deepEqual(incrementObject(constantObject), expected,
     "Returns the same value when called with the same argument");
-})
+});
