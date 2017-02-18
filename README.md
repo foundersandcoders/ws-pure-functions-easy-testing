@@ -24,15 +24,15 @@ If you are a member of FAC10 (the intended audience of this workshop) you might 
 In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
 
 ```
-const sounds = [
+var sounds = [
   'http://www.soundjig.com/mp3/soundfx/human/aaaahhhh.mp3',
   'http://www.soundjig.com/mp3/soundfx/human/breath.mp3'
 ];
 
-const soundObjects = [];
+var soundObjects = [];
 
-sounds.forEach(soundSrc => {
-  let sound = new Audio(soundSrc);
+sounds.forEach(function (soundSrc) {
+  var sound = new Audio(soundSrc);
   soundObjects.push(sound);
 });
 ```
@@ -44,7 +44,7 @@ function makeSoundObjects (sounds) {
   return sounds.map(soundSrc => new Audio(soundSrc))
 }
 
-const soundObjects = makeSoundObjects(sounds)
+var soundObjects = makeSoundObjects(sounds)
 ```
 
 ### example 3 - What if I need side effects?
@@ -54,20 +54,20 @@ This function takes no arguments, alters the dom based on the global variable `c
 ```
 //VISIONTRANSITION
 
-var changeTransition=true;
+var changeTransition = true;
 
-function visionChange(){
+function visionChange () {
 
   var visiontext = document.getElementById('hiddenvision');
   var visionimage = document.getElementById('visionimage');
-  if (changeTransition===true){
-  visiontext.style.opacity=1;
-  visionimage.style.opacity=0;
+  if (changeTransition === true) {
+  visiontext.style.opacity = 1;
+  visionimage.style.opacity = 0;
   }
 
-  if (changeTransition===false){
-    visiontext.style.opacity=0;
-    visionimage.style.opacity=1;
+  if (changeTransition === false) {
+    visiontext.style.opacity = 0;
+    visionimage.style.opacity = 1;
   }
   changeTransition = changeTransition == true ? false : true;
 
