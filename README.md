@@ -37,11 +37,14 @@ sounds.forEach(function (soundSrc) {
 });
 ```
 
-Instead lets make a function. `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
+In order to make this piece of functionality more testable, we can wrap it up in a function `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
+
 ```
 // [] -> []
 function makeSoundObjects (sounds) {
-  return sounds.map(soundSrc => new Audio(soundSrc))
+  return sounds.map(function (soundSrc) {
+    return new Audio(soundSrc);
+  });
 }
 
 var soundObjects = makeSoundObjects(sounds)
@@ -94,11 +97,11 @@ function updateDom (changeTransition) {
 ```
 These are two functions which we can easily test
 ```
-test(`functions return our stuff`, (t) => {
+QUnit.test(`functions return our stuff`, (t) => {
   t.equal(visionChange(true), false);
   t.equal(visionChange(false), true);
-  t.equal(updateDom(true), function)
-  t.equal(updateDom(false), function)
+  t.equal(typeof updateDom(true), function)
+  t.equal(typeof updateDom(false), function)
 })
 ```
 We have now two easily testable functions, which we can chain together to get the same functionality we had before.
