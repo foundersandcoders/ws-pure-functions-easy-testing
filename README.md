@@ -17,6 +17,8 @@ If you've tried to start writing tests and struggled, it could well be that the 
 
 ## Examples stolen from FAC10
 
+If you are a member of FAC10 (the intended audience of this workshop) you might recognise some of this code. Please don't be offended! You're all writing much better code than I was in your position.
+
 ### example 1 - let's be declarative, let's get functional
 
 In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
@@ -48,7 +50,7 @@ function makeSoundObjects (sounds) {
 var soundObjects = makeSoundObjects(sounds)
 ```
 
-### example 2 - What if I need side effects?
+### example 3 - What if I need side effects?
 Most programs we want to write wouldn't work if we completely disallow side effects. How then we can ensure that our impure functions are testable?
 
 This function takes no arguments, alters the dom based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
@@ -78,7 +80,7 @@ Here we have rewritten the function to to be two seperate functions, both of whi
 
 The second function returns an impure function, which we can wait until the right moment and then call.
 
-Imagine our impure function as being a big stupid cannon, which we load as safely as possible. Then eventually light the fuse, and run away from.  
+Imagine our impure as being an unpredictable cannon, which we load in the safest way possible. Then eventually light the fuse, and run away from.  
 ```
 function visionChange (changeTransition) {
   return changeTransition ? false : true
