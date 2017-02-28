@@ -23,23 +23,12 @@ If you are a member of FAC10 (the intended audience of this workshop) you might 
 
 In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
 
-```js
+```
 var sounds = [
   'http://www.soundjig.com/mp3/soundfx/human/aaaahhhh.mp3',
   'http://www.soundjig.com/mp3/soundfx/human/breath.mp3'
 ];
 
-var soundObjects = [];
-
-for (var i = 0; i < sounds.length; i++) {
-  var sound = new Audio(soundSrc);
-  soundObjects.push(sound);
-});
-```
-
-The first thing to notice is that there is a for loop. For loops are great way to start learning how to manipulate arrays, but going forward, we want to start making use of the methods that all arrays have access to. For loops can always be swapped for the `Array.forEach` method:
-
-```js
 var soundObjects = [];
 
 sounds.forEach(function (soundSrc) {
@@ -48,16 +37,9 @@ sounds.forEach(function (soundSrc) {
 });
 ```
 
-Great, we are no longer using a for loop, but it can be improved further - this is a perfect use case for `Array.map` method, since the number of elements of the original array (`sounds`) equals the number of elements of the resulting array (`soundObjects`)
+In order to make this piece of functionality more testable, we can wrap it up in a function `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
 
-```js
-var soundObjects = sounds.map(function (soundSrc) {
-  return new Audio(soundSrc);
-});
 ```
-
-Now in order to make this piece of functionality more testable, we can wrap it up in a function `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
-```js
 // [] -> []
 function makeSoundObjects (sounds) {
   return sounds.map(function (soundSrc) {
@@ -65,14 +47,14 @@ function makeSoundObjects (sounds) {
   });
 }
 
-var soundObjects = makeSoundObjects(sounds);
+var soundObjects = makeSoundObjects(sounds)
 ```
 
 ### example 3 - What if I need side effects?
 Most programs we want to write wouldn't work if we completely disallow side effects. How then we can ensure that our impure functions are testable?
 
 This function takes no arguments, alters the dom based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
-```js
+```
 //VISIONTRANSITION
 
 var changeTransition = true;
@@ -94,14 +76,12 @@ function visionChange () {
 
 }
 ```
-
-Here we have rewritten the function to to be two separate functions, both of which will return the same value every time, when given the same argument.
+Here we have rewritten the function to to be two seperate functions, both of which will return the same value every time, when given the same argument.
 
 The second function returns an impure function, which we can wait until the right moment and then call.
 
 Imagine our impure as being an unpredictable cannon, which we load in the safest way possible. Then eventually light the fuse, and run away from.  
-
-```js
+```
 function visionChange (changeTransition) {
   return changeTransition ? false : true
 }
@@ -115,18 +95,15 @@ function updateDom (changeTransition) {
   }
 }
 ```
-
 These are two functions which we can easily test
-
-```js
-QUnit.test('functions return our stuff', function (assert) {
-  assert.equal(visionChange(true), false);
-  assert.equal(visionChange(false), true);
-  assert.equal(typeof updateDom(true), 'function');
-  assert.equal(typeof updateDom(false), 'function');
+```
+QUnit.test(`functions return our stuff`, (t) => {
+  t.equal(visionChange(true), false);
+  t.equal(visionChange(false), true);
+  t.equal(typeof updateDom(true), function)
+  t.equal(typeof updateDom(false), function)
 })
 ```
-
 We have now two easily testable functions, which we can chain together to get the same functionality we had before.
 
 ## Exercises!
@@ -151,7 +128,7 @@ A pure function has no side effects. This means that simply calling the function
 
 A functions side effects are anything that it does beyond simply returning a value. For example this function has the side effect of changing a global variable
 
-```js
+```
 var age = 21
 
 function sideEffector () {
