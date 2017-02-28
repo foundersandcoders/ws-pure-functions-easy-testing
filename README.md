@@ -50,7 +50,7 @@ function makeSoundObjects (sounds) {
 var soundObjects = makeSoundObjects(sounds)
 ```
 
-### example 3 - What if I need side effects?
+### example 2 - What if I need side effects?
 Most programs we want to write wouldn't work if we completely disallow side effects. How then we can ensure that our impure functions are testable?
 
 This function takes no arguments, alters the dom based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
