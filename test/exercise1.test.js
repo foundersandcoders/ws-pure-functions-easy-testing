@@ -1,10 +1,3 @@
-var constantArray = [5, 7, 23, 4];
-var constantObject = {
-  "a": 5,
-  "b": 2,
-  "c": 8
-};
-
 QUnit.test('Refactor our addOne function so it is pure.', function ( t ) {
   t.equal(addOne(constantNumber), 6, "add one returns argument + 1");
   t.equal(constantNumber, 5, "constant number has not been altered");
