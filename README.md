@@ -17,8 +17,6 @@ If you've tried to start writing tests and struggled, it could well be that the 
 
 ## Examples stolen from FAC10
 
-If you are a member of FAC10 (the intended audience of this workshop) you might recognise some of this code. Please don't be offended! You're all writing much better code than I was in your position.
-
 ### example 1 - let's be declarative, let's get functional
 
 In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
