@@ -78,7 +78,7 @@ Here we have rewritten the function to to be two seperate functions, both of whi
 
 The second function returns an impure function, which we can wait until the right moment and then call.
 
-Imagine our impure as being an unpredictable cannon, which we load in the safest way possible. Then eventually light the fuse, and run away from.  
+Imagine our impure function as being a big stupid cannon, which we load as safely as possible. Then eventually light the fuse, and run away from.  
 ```
 function visionChange (changeTransition) {
   return changeTransition ? false : true
