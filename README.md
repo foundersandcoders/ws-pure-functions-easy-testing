@@ -95,6 +95,11 @@ function updateDom (changeTransition) {
     visionimage.style.opacity = changeTransition ? 0 : 1
   }
 }
+
+var impureUpdateDom = updateDom(visionChange(changeTransition));
+
+// When we're ready...
+impureUpdateDom();
 ```
 
 These are two functions which we can easily test:
