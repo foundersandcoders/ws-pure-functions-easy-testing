@@ -101,12 +101,19 @@ function updateDom (changeTransition) {
 These are two functions which we can easily test
 
 ```js
-QUnit.test(`functions return our stuff`, (t) => {
-  t.equal(visionChange(true), false);
-  t.equal(visionChange(false), true);
-  t.equal(typeof updateDom(true), function)
-  t.equal(typeof updateDom(false), function)
-})
+test('visionChange correctly switches boolean', function(t) {
+  var actual = visionChange(true);
+  var expected = false;
+  t.equal(actual, expected, 'Should return false when given true');
+  t.end();
+});
+
+test('updateDom returns correct type', function(t) {
+  var actual = typeof updateDom(true);
+  var expected = 'function';
+  t.equal(actual, expected, 'Should return a function' );
+  t.end();
+});
 ```
 
 We have now two easily testable functions, which we can chain together to get the same functionality we had before.
