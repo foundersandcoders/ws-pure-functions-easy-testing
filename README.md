@@ -23,7 +23,7 @@ If you are a member of FAC10 (the intended audience of this workshop) you might 
 
 In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
 
-```
+```js
 var sounds = [
   'http://www.soundjig.com/mp3/soundfx/human/aaaahhhh.mp3',
   'http://www.soundjig.com/mp3/soundfx/human/breath.mp3'
@@ -39,7 +39,7 @@ sounds.forEach(function (soundSrc) {
 
 In order to make this piece of functionality more testable, we can wrap it up in a function `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
 
-```
+```js
 // [] -> []
 function makeSoundObjects (sounds) {
   return sounds.map(function (soundSrc) {
@@ -54,7 +54,8 @@ var soundObjects = makeSoundObjects(sounds)
 Most programs we want to write wouldn't work if we completely disallow side effects. How then we can ensure that our impure functions are testable?
 
 This function takes no arguments, alters the dom based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
-```
+
+```js
 //VISIONTRANSITION
 
 var changeTransition = true;
@@ -80,8 +81,9 @@ Here we have rewritten the function to to be two seperate functions, both of whi
 
 The second function returns an impure function, which we can wait until the right moment and then call.
 
-Imagine our impure as being an unpredictable cannon, which we load in the safest way possible. Then eventually light the fuse, and run away from.  
-```
+Imagine our impure as being an unpredictable cannon, which we load in the safest way possible. Then eventually light the fuse, and run away from.
+
+```js
 function visionChange (changeTransition) {
   return changeTransition ? false : true
 }
@@ -95,8 +97,10 @@ function updateDom (changeTransition) {
   }
 }
 ```
+
 These are two functions which we can easily test
-```
+
+```js
 QUnit.test(`functions return our stuff`, (t) => {
   t.equal(visionChange(true), false);
   t.equal(visionChange(false), true);
@@ -104,6 +108,7 @@ QUnit.test(`functions return our stuff`, (t) => {
   t.equal(typeof updateDom(false), function)
 })
 ```
+
 We have now two easily testable functions, which we can chain together to get the same functionality we had before.
 
 ## Exercises!
