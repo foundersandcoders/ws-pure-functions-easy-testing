@@ -42,12 +42,12 @@ var incrementObject = function (object) {
 };
 
 module.exports = {
-  addOne: addOne,
-  timesTwo: timesTwo,
-  incrementArray: incrementArray,
-  addNumberArray: addNumberArray,
-  incrementObject: incrementObject,
-  constantNumber: constantNumber,
-  constantArray: constantArray,
-  constantObject: constantObject
+  addOne,
+  timesTwo,
+  incrementArray,
+  addNumberArray,
+  incrementObject,
+  constantNumber,
+  constantArray,
+  constantObject
 }

@@ -1,12 +1,6 @@
 const tape = require('tape');
 const { addOne, timesTwo, incrementArray, addNumberArray, incrementObject, constantNumber, constantArray, constantObject } = require('../exercises/exercise1.js');
 
-
-tape('tape is working', function(t) {
-  t.equals(1,1, '1 equals 1');
-  t.end();
-})
-
 tape('Refactor our addOne function so it is pure.', function(t) {
   t.equal(addOne(constantNumber), 6, "add one returns argument + 1");
   t.equal(constantNumber, 5, "constant number has not been altered");
@@ -33,7 +27,7 @@ tape('Refactor our timesTwo function so it is pure.', function(t) {
 
 tape('Refactor our incrementArray function so it is pure.', function(t) {
   t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],
-    "Returns array of incredment values");
+    "Returns array of increment values");
   t.deepEqual(constantArray, [5, 7, 23, 4],
     "constant array has not been altered");
   t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],

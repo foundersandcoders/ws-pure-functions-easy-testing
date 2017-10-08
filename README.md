@@ -1,98 +1,157 @@
-# Pure functions - easy testing
+# Pure functions for easy testing
+## Learning aims
+This workshop aims to help you understand:
+- [ ] What is a pure function?
+- [ ] Why code with pure functions?
+- [ ] How can you adapt your code to use pure functions?
 
-One of the biggest benefits of testing your code, is that you will be encouraged to write testable code. Testable code will tend to be predictable, readable, and split into small pure functions.
 
-If you've never written code in this way, it can be hard to start. This tutorial is intended to help people who are interested in testing their code learn how to start writing pure testable functions.
+*Some things you will need to know about before you start (with resources if you need to refresh your memory):*
+* If you're unclear on testing with tape, revise what you've looked at earlier this week
+* The difference between [global and local variable scope](https://docs.microsoft.com/en-us/scripting/javascript/advanced/variable-scope-javascript)
+* [Array.map()](https://https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) - review the Free Code Camp exercise [here](https://www.freecodecamp.org/challenges/iterate-over-arrays-with-map)
+* [Math.Random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 
-In this tutorial I will assume a basic familiarity with Javascript, and enough knowledge of testing to understand the the syntax.
+## Why test with pure functions?
+Testing your code lets you spot which of your functions are not doing what you're expecting them to. If you have a failing test, it tells you which part of your code needs attention.
 
-## Why should I write pure functions?
+BUT - if your test covers a massive chunk of code with hundreds of functions, how do you know which one to fix?
 
-If you are used to writing code which relies on global state and utilises side effects then writing pure functions can feel like imposing unnecessary restrictions on yourself.
+The answer is to make sure your tests each cover a single function and that each of those functions are small and predictable - pure functions. Pure functions aren't always easy to write, so this workshop aims to give you some ideas of where to start.
 
-I encourage you to fight through this inertia, as pure functions can have huge benefits for your code. Today we will be focusing on one particular benefit:
 
-**easy testing**
+## What is a _pure function_?
+### A pure function always returns the same result from the same arguments.
+Functions take in some number of arguments and then return a value. A _pure function_ will __always__ return the same result when run with the same arguments.
 
-If you've tried to start writing tests and struggled, it could well be that the code you are writing is simply _too hard to test_. If a function relies on global variables, it means your tests will have to set up global state, reset it for each test, and if a test fails it's hard to be sure exactly why.
+For example, if you call...
 
-## Examples (stolen from FAC10)
+```
+function stringLength(str) {
+    return str.length;
+};
+```
+... with the argument `str='hello'` the answer will always be `5`, no matter how many times you run the function.
 
-### Example 1 - let's be declarative, let's get functional
+However, if you call...
+```
+function randomAdd(x) {
+    return Math.random() + x;
+};
+```
+... with the argument `x=5` the answer should be different each time, as x is added to a random number between 0 and 1. This would not be a pure function.
 
-In this example we create the empty array `soundObjects`. We then mutate it. Because this code isn't broken out into functions, and relies on global variables, it's very hard to test.
+### A pure function has no side effects.
+A side effect is anything a function does outside of calculating the return value. This means that simply calling the function should have no effect on the rest of your program - it should do nothing but return a value.
 
-```js
-var sounds = [
-  'http://www.soundjig.com/mp3/soundfx/human/aaaahhhh.mp3',
-  'http://www.soundjig.com/mp3/soundfx/human/breath.mp3'
-];
+One example of a side effect is __changing a global variable__, which would happen in this case:
 
-var soundObjects = [];
+```
+var age = 1;
 
-sounds.forEach(function (soundSrc) {
-  var sound = new Audio(soundSrc);
-  soundObjects.push(sound);
-});
+function howOldNextBirthday(a){
+    age = a + 1;
+    return age;
+}
 ```
 
-In order to make this piece of functionality more testable, we can wrap it up in a function `makeSoundObjects` will take an array as an argument, and return a new array with the information we want. This means we can run tests with any array that we want, and that we can create our soundObjects in the form we want without ever having to mutate it.
+The first time we call `howOldNextBirthday(age)`, it would return `2`, but if we were to call `howOldNextBirthday(age)` a second time, it would return `3`. This is because the global variable `age` was changed by the function as it ran. If you had other functions that relied on the `age` variable, they may not behave in the way you expected because of this change.
+[See this in repl.it](https://repl.it/LwTb)
 
-```js
-// [] -> []
-function makeSoundObjects (sounds) {
-  return sounds.map(function (soundSrc) {
-    return new Audio(soundSrc);
-  });
+
+Other side effects include __making HTTP requests__ and __manipulating the DOM__.
+
+## Examples:
+### Example 1 - avoiding unneeded global variables
+Imagine we've been asked to write some code that takes an array of words and returns an array of those words capitalised and with 3 exclamation marks:
+```
+['dog', 'cat', 'mouse'] becomes ['DOG!!!', 'CAT!!!', 'MOUSE!!!']
+
+['chocolate', 'crisps', 'icecream'] becomes ['CHOCOLATE!!!', 'CRISPS!!!', 'ICECREAM!!!']
+```
+
+One way to write this would involve creating an empty array `excitedWords`, and then mutate (change) it:
+
+```
+var wordList = ['chocolate', 'crisps', 'icecream'];
+
+var excitedWords=[];
+
+for (var i=0; i<wordList.length; i++){
+    var word = wordList[i].toUpperCase() + '!!!'
+    excitedWords.push(word);
+};
+```
+
+However, this code is not divided into functions, and relies on global variables. This makes it hard to test: there is no function for our testing framework to call on, and `excitedWords` would need to be reset for each test.
+
+To make this code testable, we can wrap it into a function `excite()` that takes an array as an argument and returns the information we want. This means we can run tests with any array, and that we can create our `excitedWords` array in the form we want without ever having to mutate it.
+
+```
+function excite(words) {
+    return words.map(function(word) {
+        return word.toUpperCase()+'!!!';
+    });
 }
 
-var soundObjects = makeSoundObjects(sounds)
+var wordList = ['chocolate', 'crisps', 'icecream'];
+var excitedWords = excite(wordList);
 ```
 
-### Example 2 - What if I need side effects?
-Most programs we want to write wouldn't work if we completely disallowed side effects. How then we can ensure that our impure functions are testable?
+### Example 2 - but what if I need side effects?
+Most programs we want to write wouldn't work if we completely disallowed side effects. How then can we ensure that our impure functions are testable?
 
-This function takes no arguments, alters the DOM based on the global variable `changeTransition`, then changes the the global variable `changeTransition`.
+In this example, we have a function that toggles the opacity of an image (when the opacity is 0, it cannot be seen). Once the function is called, if the image is visible, it becomes invisible, but if it is already invisible, it instead becomes visible.
+
+In the first version below, the function takes no arguments, alters the DOM after checking the global variable `changeTransition`, then changes the the global variable `changeTransition`.
 
 ```js
-//VISIONTRANSITION
-
 var changeTransition = true;
 
 function visionChange () {
 
-  var visiontext = document.getElementById('hiddenvision');
   var visionimage = document.getElementById('visionimage');
+
   if (changeTransition === true) {
-  visiontext.style.opacity = 1;
   visionimage.style.opacity = 0;
   }
 
   if (changeTransition === false) {
-    visiontext.style.opacity = 0;
     visionimage.style.opacity = 1;
   }
-  changeTransition = changeTransition == true ? false : true;
+
+
+  if (changeTransition === true) {
+      changeTransition = false;
+  } else {
+      changeTransition = true;
+  }
 
 }
 ```
-Here we have rewritten the function to to be two separate functions, both of which will return the same value every time, when given the same argument.
+Next we rewrite the function as two separate functions, both of which will return the same value every time, when given the same argument.
 
-The second function returns an impure function, which we can wait until the right moment and then call.
+Can you see what each functions return? How might you test the functions?
 
-Imagine our impure function as an unpredictable cannon, which we load in the safest way possible. We eventually light the fuse and run away.
 
 ```js
 function visionChange (changeTransition) {
-  return changeTransition ? false : true
+  if (changeTransition){
+      return false;
+  } else {
+      return true;
+  }
 }
 
 function updateDom (changeTransition) {
   return function() {
-    var visiontext = document.getElementById('hiddenvision');
     var visionimage = document.getElementById('visionimage');
-    visiontext.style.opacity = changeTransition ? 1 : 0;
-    visionimage.style.opacity = changeTransition ? 0 : 1
+
+    if (changeTransition) {
+        visionimage.style.opacity = 0;
+    } else {
+        visionimage.style.opacity = 1;
+    }
   }
 }
 
@@ -102,12 +161,17 @@ var impureUpdateDom = updateDom(visionChange(changeTransition));
 impureUpdateDom();
 ```
 
-These are two functions which we can easily test:
+`changeTransition()` returns either `true` or `false`, and we can test whether the function returns the expected boolean case.
+
+`updateDOM` returns a function which is impure (because it changes the DOM). We can test that the returned output is indeed a function.
+
+Here's what our tests might look like:
 
 ```js
 test('visionChange correctly switches boolean', function(t) {
   var actual = visionChange(true);
   var expected = false;
+
   t.equal(actual, expected, 'Should return false when given true');
   t.end();
 });
@@ -115,6 +179,7 @@ test('visionChange correctly switches boolean', function(t) {
 test('updateDom returns correct type', function(t) {
   var actual = typeof updateDom(true);
   var expected = 'function';
+
   t.equal(actual, expected, 'Should return a function' );
   t.end();
 });
@@ -123,37 +188,12 @@ test('updateDom returns correct type', function(t) {
 We now have two easily testable functions, which we can chain together to get the same functionality we had before.
 
 ## Exercises!
+In these exercises, you have a number of impure functions and a number of failing tests. Your task is to rewrite the functions (and not the tests!) to make sure that the tests pass and the functions are pure.
 
-* clone this repo
-* open `specrunner.html` in the browser
-* appreciate the failing tests
+* clone this repo and run `npm install`
+* run the tests using `npm test` (don't worry about the package-lock.json notice)
+* look at the passing and failing tests
 * open `exercises/exercise1.js`
 * refactor the functions to make the tests pass. It will be useful to open the tests and look at exactly what is expected.
 
-## Glossary
-
-### Pure functions
-
-A pure function takes in some number of arguments and then returns a value.
-
-When called with a given set of arguments a pure function will __always__ return the same result.
-
-A pure function has no side effects. This means that simply calling the function should have no effect on the rest of your program - it should do nothing but return a value.
-
-### Side effect
-
-A functions side effects are anything that it does beyond simply returning a value. For example this function has the side effect of changing a global variable
-
-```js
-var age = 21
-
-function sideEffector () {
-  age += 1
-}
-
-console.log(age) // 21
-sideEffector()
-console.log(age) // 22
-```
-
-Side effects also include making HTTP requests and manipulating the DOM.
+Hint: avoid changing any global variables...
