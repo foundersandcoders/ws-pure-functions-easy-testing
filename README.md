@@ -181,10 +181,26 @@ return the same value every time, when given the same argument.
 Can you see what each functions return? How might you test the functions?
 
 ```js
-+function updateDom(newOpacity) {
+function transitionToggle(changeTransition) {
+  if (changeTransition) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function opacityPicker(changeTransition) {
+  if (changeTransition) {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+function updateDom(newOpacity) {
   var visionimage = document.getElementById("visionimage");
   visionimage.style.opacity = newOpacity;
-};
+}
 
 var impureUpdateDom = updateDom(
   opacityPicker(transitionToggle(changeTransition))
@@ -225,8 +241,8 @@ test("opacityPicker correctly returns 0/1 depending on the argument given", func
 });
 ```
 
-We now have two easily testable functions and a function that updates the DOM,
-which we can chain together to get the same functionality we had before.
+We now have two easily testable functions and an impure function, which we can
+chain together to get the same functionality we had before.
 
 ## Exercises!
 
