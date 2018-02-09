@@ -196,6 +196,8 @@ test("updateDom returns correct type", function(t) {
 
 We now have two easily testable functions, which we can chain together to get the same functionality we had before.
 
+Before you start the exercises, please look at this [example](https://github.com/foundersandcoders/master-reference/blob/master/coursebook/fragments/object-pass-by-reference.js) to understand how to copy an object.
+
 ## Exercises!
 
 In these exercises, you have a number of impure functions and a number of failing tests. Your task is to rewrite the functions (and not the tests!) to make sure that the tests pass and the functions are pure.
@@ -207,4 +209,3 @@ In these exercises, you have a number of impure functions and a number of failin
 * refactor the functions to make the tests pass. It will be useful to open the tests and look at exactly what is expected.
 
 Hint: avoid changing any global variables...
-For help in how to copy an object please see this[example](https://github.com/foundersandcoders/master-reference/blob/master/coursebook/fragments/object-pass-by-reference.js)
