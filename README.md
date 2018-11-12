@@ -77,7 +77,7 @@ Imagine we've been asked to write some code that takes an array of words and ret
 
 ```js
 ['dog', 'cat', 'mouse']
-/// becomes
+// becomes
 ['DOG!!!', 'CAT!!!', 'MOUSE!!!']
 
 ['chocolate', 'crisps', 'icecream']
@@ -102,11 +102,11 @@ However, this code is not divided into functions, and relies on global variables
 
 To make this code testable, we can wrap it into a function `excite()` that takes an array as an argument and returns the information we want. This means we can run tests with any array, and that we can create our `excitedWords` array in the form we want without ever having to mutate it.
 
-```
+```js
 function excite(words) {
-    return words.map(function(word) {
-        return word.toUpperCase()+'!!!';
-    });
+  return words.map(function(word) {
+    return word.toUpperCase()+'!!!';
+  });
 }
 
 var wordList = ['chocolate', 'crisps', 'icecream'];
