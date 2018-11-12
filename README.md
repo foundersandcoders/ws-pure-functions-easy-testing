@@ -4,9 +4,9 @@
 
 This workshop aims to help you understand:
 
-* [ ] What is a pure function?
-* [ ] Why code with pure functions?
-* [ ] How can you adapt your code to use pure functions?
+* What is a pure function?
+* Why code with pure functions?
+* How can you adapt your code to use pure functions?
 
 _Some other things you will need to know about before you start (with resources if you need to refresh your memory):_
 
@@ -31,9 +31,9 @@ Functions take in some number of arguments and then return a value. A _pure func
 
 For example, if you call...
 
-```
+```js
 function stringLength(str) {
-    return str.length;
+  return str.length;
 };
 ```
 
@@ -41,9 +41,9 @@ function stringLength(str) {
 
 However, if you call...
 
-```
+```js
 function randomAdd(x) {
-    return Math.random() + x;
+  return Math.random() + x;
 };
 ```
 
@@ -55,12 +55,12 @@ A side effect is anything a function does outside of calculating the return valu
 
 One example of a side effect is **changing a global variable**, which would happen in this case:
 
-```
+```js
 var age = 1;
 
 function howOldNextBirthday(a){
-    age = a + 1;
-    return age;
+  age = a + 1;
+  return age;
 }
 ```
 
@@ -75,22 +75,26 @@ Other side effects include **making HTTP requests** and **manipulating the DOM**
 
 Imagine we've been asked to write some code that takes an array of words and returns an array of those words capitalised and with 3 exclamation marks:
 
-```
-['dog', 'cat', 'mouse'] becomes ['DOG!!!', 'CAT!!!', 'MOUSE!!!']
+```js
+['dog', 'cat', 'mouse']
+/// becomes
+['DOG!!!', 'CAT!!!', 'MOUSE!!!']
 
-['chocolate', 'crisps', 'icecream'] becomes ['CHOCOLATE!!!', 'CRISPS!!!', 'ICECREAM!!!']
+['chocolate', 'crisps', 'icecream']
+// becomes
+['CHOCOLATE!!!', 'CRISPS!!!', 'ICECREAM!!!']
 ```
 
 One way to write this would involve creating an empty array `excitedWords`, and then mutate (change) it:
 
-```
+```js
 var wordList = ['chocolate', 'crisps', 'icecream'];
 
 var excitedWords=[];
 
 for (var i=0; i<wordList.length; i++){
-    var word = wordList[i].toUpperCase() + '!!!'
-    excitedWords.push(word);
+  var word = wordList[i].toUpperCase() + '!!!'
+  excitedWords.push(word);
 };
 ```
 
