@@ -203,7 +203,7 @@ Before you start the exercises, please look at this [example](https://github.com
 In these exercises, you have a number of impure functions and a number of failing tests. Your task is to rewrite the functions (and not the tests!) to make sure that the tests pass and the functions are pure.
 
 - clone this repo and run `npm install`
-- if you wish to use nodemon:
+- if you wish to use nodemon to automatically re-run your tests when you save:
   - 1. run `npm i -D nodemon` in your terminal
   - 2. change the test scripts in your package.json file to
        `"test": "nodemon ./test/exercise1.test.js | tap-spec"`
