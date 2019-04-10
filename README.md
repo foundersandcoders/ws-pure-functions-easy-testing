@@ -12,7 +12,7 @@ _Some other things you will need to know about before you start (with resources 
 
 - If you're unclear on testing with tape, revise what you've looked at earlier this week
 - The difference between [global and local variable scope](https://docs.microsoft.com/en-us/scripting/javascript/advanced/variable-scope-javascript)
-- [Array.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) - review the Free Code Camp exercise [here](https://www.freecodecamp.org/challenges/iterate-over-arrays-with-map)
+- [Array.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) - review the Free Code Camp exercise [here](https://learn.freecodecamp.org/javascript-algorithms-and-data-structures/functional-programming/use-the-map-method-to-extract-data-from-an-array/)
 - [Math.Random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 
 ## Why test with pure functions?
