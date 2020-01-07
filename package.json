@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node ./test/exercise1.test.js | tap-spec"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
   },
   "homepage": "https://github.com/Jwhiles/pure-functions-easy-testing#readme",
   "devDependencies": {
-    "tap-spec": "^4.1.2",
-    "tape": "^4.10.1"
+    "jest": "^24.9.0"
   }
 }

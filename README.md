@@ -10,7 +10,7 @@ This workshop aims to help you understand:
 
 _Some other things you will need to know about before you start (with resources if you need to refresh your memory):_
 
-- If you're unclear on testing with tape, revise what you've looked at earlier this week
+- If you're unclear on testing with jest, revise what you've looked at earlier this week
 - The difference between [global and local variable scope](https://docs.microsoft.com/en-us/scripting/javascript/advanced/variable-scope-javascript)
 - [Array.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) - review the Free Code Camp exercise [here](https://learn.freecodecamp.org/javascript-algorithms-and-data-structures/functional-programming/use-the-map-method-to-extract-data-from-an-array/)
 - [Math.Random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
@@ -181,20 +181,18 @@ impureUpdateDom();
 Here's what our tests might look like:
 
 ```js
-test("visionChange correctly switches boolean", function(t) {
+test("visionChange correctly switches boolean", function() {
   var actual = visionChange(true);
   var expected = false;
 
-  t.equal(actual, expected, "Should return false when given true");
-  t.end();
+  expect(actual).toBe(expected);  
 });
 
-test("updateDom returns correct type", function(t) {
+test("updateDom returns correct type", function() {
   var actual = typeof updateDom(true);
   var expected = "function";
 
-  t.equal(actual, expected, "Should return a function");
-  t.end();
+  expect(actual).toBe(expected);  
 });
 ```
 
@@ -206,12 +204,9 @@ Before you start the exercises, please look at this [example](https://github.com
 
 In these exercises, you have a number of impure functions and a number of failing tests. Your task is to rewrite the functions (and not the tests!) to make sure that the tests pass and the functions are pure.
 
-- clone this repo and run `npm install`
-- if you wish to use nodemon to automatically re-run your tests when you save:
-  - 1. run `npm i -D nodemon` in your terminal
-  - 2. change the test scripts in your package.json file to
-       `"test": "nodemon ./test/exercise1.test.js | tap-spec"`
+- clone this repo and run `npm install`  
 - run the tests using `npm test` (don't worry about the package-lock.json notice)
+- if you wish to automatically re-run your tests when you save - run `npm test:watch`  
 - look at the passing and failing tests
 - open `exercises/exercise1.js`
 - refactor the functions to make the tests pass. It will be useful to open the tests and look at exactly what is expected.

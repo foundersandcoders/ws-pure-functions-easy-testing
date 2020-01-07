@@ -1,58 +1,43 @@
-const tape = require('tape');
-const { addOne, timesTwo, incrementArray, addNumberArray, incrementObject, constantNumber, constantArray, constantObject } = require('../exercises/exercise1.js');
+const { addOne, timesTwo, incrementArray, addNumberArray, incrementObject, constantNumber, constantArray, constantObject } = require('../solutions/exercise1.js');
 
-tape('Refactor our addOne function so it is pure.', function(t) {
-  t.equal(addOne(constantNumber), 6, "add one returns argument + 1");
-  t.equal(constantNumber, 5, "constant number has not been altered");
-  t.equal(addOne(constantNumber), 6,
-    "Returns the same value when called with the same argument");
-  t.equal(addOne(4), 5, 'works for other values');
-  t.equal(addOne(104), 105, 'works for other values');
-  t.equal(addOne(7), 8, 'works for other values');
-  t.equal(addOne(78), 79, 'works for other values');
-  t.end();
+test('Refactor our addOne function so it is pure.', function() {
+  expect(addOne(constantNumber)).toBe(6);
+  expect(constantNumber).toBe(5);
+  expect(addOne(constantNumber)).toBe(6);    
+  expect(addOne(4)).toBe(5);
+  expect(addOne(104)).toBe(105);
+  expect(addOne(7)).toBe(8);
+  expect(addOne(78)).toBe(79);
 })
 
-tape('Refactor our timesTwo function so it is pure.', function(t) {
-  t.equal(timesTwo(constantNumber), 10, "Returns argument doubled");
-  t.equal(constantNumber, 5, "constant number has not been altered");
-  t.equal(timesTwo(constantNumber), 10,
-    "Returns the same value when called with the same argument");
-  t.equal(timesTwo(4), 8, "works for other values");
-  t.equal(timesTwo(27), 54, "works for other values");
-  t.equal(timesTwo(7), 14, "works for other values");
-  t.equal(timesTwo(23), 46, "works for other values");
-  t.end();
+test('Refactor our timesTwo function so it is pure.', function() {
+  expect(timesTwo(constantNumber)).toBe(10);
+  expect(constantNumber).toBe(5);
+  expect(timesTwo(constantNumber)).toBe(10);
+  expect(timesTwo(4)).toBe(8);
+  expect(timesTwo(27)).toBe(54);
+  expect(timesTwo(7)).toBe(14);
+  expect(timesTwo(23)).toBe(46);
 })
 
-tape('Refactor our incrementArray function so it is pure.', function(t) {
-  t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],
-    "Returns array of increment values");
-  t.deepEqual(constantArray, [5, 7, 23, 4],
-    "constant array has not been altered");
-  t.deepEqual(incrementArray(constantArray), [6, 8, 24, 5],
-    "Returns the same value when called with the same argument");
-  t.deepEqual(incrementArray([3, 5, 12]), [4, 6, 13], "works for other values");
-  t.deepEqual(incrementArray([7, 54, 1]), [8, 55, 2], "works for other values");
-  t.deepEqual(incrementArray([1]), [2], "works for other values");
-  t.end();
+test('Refactor our incrementArray function so it is pure.', function() {
+  expect(incrementArray(constantArray)).toEqual([6, 8, 24, 5])
+  expect(constantArray).toEqual([5, 7, 23, 4]);  
+  expect(incrementArray(constantArray)).toEqual([6, 8, 24, 5]) // should return same value when called with same argument
+  expect(incrementArray([3, 5, 12])).toEqual([4, 6, 13]);
+  expect(incrementArray([7, 54, 1])).toEqual([8, 55, 2]);
+  expect(incrementArray([1])).toEqual([2]);
 })
 
-tape('Refactor our addNumberArray function so it is pure.', function(t) {
-    t.deepEqual(addNumberArray(constantArray, constantNumber), [5, 7, 23, 4, 5],
-      "returns array with a new number appended");
-    t.deepEqual(constantArray, [5, 7, 23, 4],
-      "constant array has not been altered");
-    t.deepEqual(addNumberArray(constantArray, constantNumber), [5, 7, 23, 4, 5],
-      "Returns the same value when called with the same argument");
-    t.deepEqual(addNumberArray([4, 100, 12], 27), [4, 100, 12, 27],
-      "works with other values");
-    t.deepEqual(addNumberArray([2], 5), [2, 5],
-      "works with other values");
-      t.end();
+test('Refactor our addNumberArray function so it is pure.', function() {
+    expect(addNumberArray(constantArray, constantNumber)).toEqual([5, 7, 23, 4, 5]);      
+    expect(constantArray).toEqual([5, 7, 23, 4]);
+    expect(addNumberArray(constantArray, constantNumber)).toEqual([5, 7, 23, 4, 5]); // should return same value when called with same argument      
+    expect(addNumberArray([4, 100, 12], 27)).toEqual([4, 100, 12, 27]);      
+    expect(addNumberArray([2], 5)).toEqual([2, 5]);      
 })
 
-tape('Refactor our incrementObject function so it is pure', function(t) {
+test('Refactor our incrementObject function so it is pure', function() {
     var expected = {
       "a": 6,
       "b": 3,
@@ -64,13 +49,11 @@ tape('Refactor our incrementObject function so it is pure', function(t) {
       "c": 8
     };
 
-    t.deepEqual(incrementObject(constantObject), expected,
-      "Returns array of incremented values");
-    t.deepEqual(constantObject, startingObject,
-      "constant array has not been altered");
-    t.deepEqual(incrementObject(constantObject), expected,
-      "Returns the same value when called with the same argument");
-    t.deepEqual(incrementObject({ "a": 4, "b": 12, "c": 9 }),
-      { "a": 5, "b": 13, "c": 10 }, "works with other values");
-      t.end()
+    expect(incrementObject(constantObject)).toEqual(expected);
+    expect(constantObject).toEqual(startingObject);
+    expect(incrementObject(constantObject)).toEqual(expected);
+    expect(incrementObject({ "a": 4, "b": 12, "c": 9 }))
+      .toEqual(
+        { "a": 5, "b": 13, "c": 10 }
+      );     
 })
